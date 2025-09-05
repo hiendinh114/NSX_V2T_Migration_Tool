@@ -1,7 +1,7 @@
 ---
 VCloudDirector:
-  ipAddress: vcloud04.vtidclab.local # IP/FQDN of VMware Cloud Director
-  username: administrator #  VMware Cloud Director system administrator login name
+  ipAddress: vcloud04.cloud.local # IP/FQDN of VMware Cloud Director
+  username: v2t #  VMware Cloud Director system administrator login name
   verify: False # Certificate validation enabled
 
 OrgVDC: # (optional) List of NSX-V backed organization VDC(s) to be assessed

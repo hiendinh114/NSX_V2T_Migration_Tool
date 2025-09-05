@@ -2,7 +2,7 @@
 VCloudDirector:
   Common:
     ipAddress: vcloud04.cloud.local # IP/FQDN of VMware Cloud Director
-    username: administrator # VMware Cloud Director system administrator login name
+    username: v2t # VMware Cloud Director system administrator login name
     verify: False # Certificate validation enabled
   Organization:
     OrgName: MIGRATION-01 # Short name of the organization containing Org VDC to be migrated
@@ -88,7 +88,7 @@ NSXT:
 
 NSXV:
   Common:
-    ipAddress: 10.255.1.253 # IP/FQDN of NSX-V Manager
+    ipAddress: nsxv.cloud.local # IP/FQDN of NSX-V Manager
     username: admin # NSX-V administrator login name
     verify: False # Certificate validation enabled
 
