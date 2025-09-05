@@ -247,7 +247,7 @@ class VCDMigrationValidation:
             # get json response
             responseDict = getResponse.json()
             if getResponse.status_code == requests.codes.ok:
-                return responseDict['versionInfo'][-1]['version']
+                return responseDict['versionInfo'][-4]['version']
             else:
                 raise Exception('Failed to fetch API version due to error {}'.format(responseDict['message']))
         except:
