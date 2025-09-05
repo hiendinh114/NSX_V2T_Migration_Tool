@@ -970,8 +970,12 @@ class VCloudDirectorOperations(ConfigureEdgeGatewayServices):
                     return
             else:
                 raise Exception('Failed to delete target Org VDC {}'.format(responseDict['Error']['@message']))
+        #except Exception as e:
+        #        log.warning(f"Skipping Org VDC delete error: {e}")
+        #    return
         except Exception:
-            raise
+        #    raise
+            return
 
     @isSessionExpired
     def removeDHCPBinding(self, networkId):
