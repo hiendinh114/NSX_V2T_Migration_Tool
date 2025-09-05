@@ -1,10 +1,11 @@
+#!/usr/bin/python3
 # ******************************************************
 # Copyright © 2020-2021 VMware, Inc. All rights reserved.
 # ******************************************************
 
-"""
-Description: Module which performs all the clean-up tasks after migrating the VMware Cloud Director from NSX-V to NSX-T
-"""
+#"""
+#Description: Module which performs all the clean-up tasks after migrating the VMware Cloud Director from NSX-V to NSX-T
+#"""
 
 import copy
 import ipaddress

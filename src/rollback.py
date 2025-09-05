@@ -1,10 +1,11 @@
+#!/usr/bin/python3
 # ******************************************************
 # Copyright © 2020-2021 VMware, Inc. All rights reserved.
 # ******************************************************
 
-"""
-Description : Module performs all the rollback related operations during a failure
-"""
+#"""
+#Description : Module performs all the rollback related operations during a failure
+#"""
 
 import copy
 import threading
