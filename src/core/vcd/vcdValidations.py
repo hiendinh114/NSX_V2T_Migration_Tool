@@ -1362,25 +1362,49 @@ class VCDMigrationValidation:
         Parameters  : sourceOrgVDCId   - Id of the source org vdc (STRING)
         """
         try:
+            logger.debug("=== Starting validateVMPlacementPolicy ===")  #HienDQ
+            logger.debug("sourceOrgVDCId = %s", sourceOrgVDCId)         #HienDQ
+
             targetPVDCComputePolicyList = []
             # reading api data from metadata
             data = self.rollback.apiData
+
+            logger.debug("Loaded rollback.apiData: %s", data.keys())    #HienDQ
+
             orgVdcId = sourceOrgVDCId.split(':')[-1]
             # url to retrieve compute policies of source org vdc
             url = "{}{}".format(vcdConstants.XML_ADMIN_API_URL.format(self.ipAddress),
                                 vcdConstants.ORG_VDC_COMPUTE_POLICY.format(orgVdcId))
+            
+            logger.debug("Constructed URL for source OrgVDC compute policies: %s", url) #HienDQ
+
             # get api call to retrieve source org vdc compute policies
             response = self.restClientObj.get(url, self.headers)
+
+            logger.debug("Response status for compute policies = %s", response.status_code) #HienDQ
+
             responseDict = self.vcdUtils.parseXml(response.content)
+
+            logger.debug("Parsed XML response: %s", responseDict)   #HienDQ
+
             if response.status_code == requests.codes.ok:
                 data['sourceOrgVDCComputePolicyList'] = responseDict['VdcComputePolicyReferences']['VdcComputePolicyReference']
             sourceOrgVDCName = data['sourceOrgVDC']['@name']
             targetProviderVDCName = data['targetProviderVDC']['@name']
             targetProviderVDCId = data['targetProviderVDC']['@id']
+
+            logger.debug("SourceOrgVDC = %s, TargetProviderVDC = %s", sourceOrgVDCName, targetProviderVDCName)  #HienDQ
+
             sourcePolicyList = data['sourceOrgVDCComputePolicyList']
             sourceComputePolicyList = [sourcePolicyList] if isinstance(sourcePolicyList, dict) else sourcePolicyList
+
+            logger.debug("Source compute policies count = %d", len(sourceComputePolicyList))    #HienDQ
+
             allOrgVDCComputePolicesList = self.getOrgVDCComputePolicies()
             orgVDCComputePolicesList = [allOrgVDCComputePolicesList] if isinstance(allOrgVDCComputePolicesList, dict) else allOrgVDCComputePolicesList
+
+            logger.debug("All OrgVDC compute policies count = %d", len(orgVDCComputePolicesList))       #HienDQ
+
             targetTemporaryList = []
             # iterating over the org vdc compute policies
             for eachComputePolicy in orgVDCComputePolicesList:
@@ -1403,12 +1427,18 @@ class VCDMigrationValidation:
 
             # creating list of source org vdc compute policies excluding system default
             sourceOrgVDCComputePolicyList = [sourceComputePolicy for sourceComputePolicy in sourceComputePolicyList if sourceComputePolicy['@name'] != 'System Default']
+
+            logger.debug("Filtered sourceOrgVDCComputePolicyList count = %d", len(sourceOrgVDCComputePolicyList))   #HienDQ
+
             sourceOrgVDCPlacementPolicyList = []
             sourceTemporaryList = []
             # iterating over source org vdc compute policies
             for vdcComputePolicy in sourceOrgVDCComputePolicyList:
                 # get api call to retrieve compute policy details
                 response = self.restClientObj.get(vdcComputePolicy['@href'], self.headers)
+
+                logger.debug("Fetching compute policy %s status %s", vdcComputePolicy['@name'], response.status_code)   #HienDQ
+
                 if response.status_code == requests.codes.ok:
                     responseDict = response.json()
                     if not responseDict['isSizingOnly'] and responseDict['pvdcId']:
@@ -1419,6 +1449,9 @@ class VCDMigrationValidation:
             # deleting both the temporary list, since no longer needed
             del targetTemporaryList
             del sourceTemporaryList
+
+            logger.debug("Final: sourceOrgVDCPlacementPolicyList = %d, targetPVDCComputePolicyList = %d", len(sourceOrgVDCPlacementPolicyList), len(targetPVDCComputePolicyList))   #HienDQ
+
             if len(sourceOrgVDCPlacementPolicyList) != len(targetPVDCComputePolicyList):
                 raise Exception('Target PVDC - {} does not have source Org VDC - {} placement policies in it.'.format(targetProviderVDCName,
                                                                                                                      sourceOrgVDCName))
@@ -1426,8 +1459,12 @@ class VCDMigrationValidation:
                 logger.debug("Validated successfully, source Org VDC placement policy exist in target PVDC")
             else:
                 logger.debug("No placement policies are present in source Org VDC")
-        except Exception:
+
+        except Exception as e:              #HienDQ
+            logger.exception("Exception in validateVMPlacementPolicy: %s", str(e))
             raise
+        #except Exception:
+        #    raise
 
     @isSessionExpired
     def validateStorageProfiles(self):
