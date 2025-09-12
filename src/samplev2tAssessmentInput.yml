@@ -1,19 +1,21 @@
 ---
 VCloudDirector:
-  ipAddress: 10.196.235.27 # IP/FQDN of VMware Cloud Director
-  username: administrator #  VMware Cloud Director system administrator login name
+  ipAddress: vcloud05.cloud.local # IP/FQDN of VMware Cloud Director
+  username: v2t #  VMware Cloud Director system administrator login name
   verify: False # Certificate validation enabled
 
 OrgVDC: # (optional) List of NSX-V backed organization VDC(s) to be assessed
-  - test-vdc-1
-  - test-vdc-2
-  - test-vdc-3: Acme-27  # If you need to specify organization of the org vdc (in case the Org VDC name is not unique), use the following naming convention <org-vdc-name>: <org-name>.
+#  - test-vdc-1
+#  - test-vdc-2
+#  - test-vdc-3: Acme-27  # If you need to specify organization of the org vdc (in case the Org VDC name is not unique), use the following naming convention <org-vdc-name>: <org-name>.
+  - MIGRATION-01-NSXV
 
 
 Organization: # (optional) List of names of the organization(s) to be validated
-  - Acme-27
+#  - Acme-27
+  - MIGRATION-01
 
-Common:
-  CertificatePath: D:\tmp\certs\vcd27.pem # Signing CA or self-signed certificate path for certificates validation
+#Common:
+#  CertificatePath: D:\tmp\certs\vcd27.pem # Signing CA or self-signed certificate path for certificates validation
 
 # Note: All NSX-V backed Org VDCs will be assessed unless specific OrgVDC(s) or Organization(s) are listed above
