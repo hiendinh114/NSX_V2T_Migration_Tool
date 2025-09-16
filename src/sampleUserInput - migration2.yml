@@ -5,10 +5,10 @@ VCloudDirector:
     username: v2t # VMware Cloud Director system administrator login name
     verify: False # Certificate validation enabled
   Organization:
-    OrgName: MIGRATION-01 # Short name of the organization containing Org VDC to be migrated
+    OrgName: MIGRATION-02 # Short name of the organization containing Org VDC to be migrated
   SourceOrgVDC:
     # Single/multiple source Org VDCs in the form of a list that needs to be migrated
-    - OrgVDCName: MIGRATION-01-NSXV # Name of the source organization VDC
+    - OrgVDCName: MIGRATION-02-NSXV # Name of the source organization VDC
       NSXVProviderVDCName: AZB-NSXV # Name of the source provider VDC backed by NSX-V
       NSXTProviderVDCName: AZA-NSXT # Name of the target provider VDC backed by NSX-T
       Tier0Gateways: T0-PUBLIC # Name of the Tier-0 gateway to which target NSX-T edge gateways will be connected to
