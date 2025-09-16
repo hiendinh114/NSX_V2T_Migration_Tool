@@ -5,17 +5,13 @@ VCloudDirector:
     username: v2t # VMware Cloud Director system administrator login name
     verify: False # Certificate validation enabled
   Organization:
-    OrgName: MIGRATION-01 # Short name of the organization containing Org VDC to be migrated
+    OrgName: MIGRATION-03 # Short name of the organization containing Org VDC to be migrated
   SourceOrgVDC:
     # Single/multiple source Org VDCs in the form of a list that needs to be migrated
-    - OrgVDCName: MIGRATION-01-NSXV # Name of the source organization VDC
+    - OrgVDCName: MIGRATION-03-NSXV # Name of the source organization VDC
       NSXVProviderVDCName: AZB-NSXV # Name of the source provider VDC backed by NSX-V
       NSXTProviderVDCName: AZA-NSXT # Name of the target provider VDC backed by NSX-T
-<<<<<<< HEAD
-      Tier0Gateways: EXTERNAL_VLAN2202_PUBLIC_200.200.202.0_24 # Name of the Tier-0 gateway to which target NSX-T edge gateways will be connected to
-=======
-      Tier0Gateways: T0-PUBLIC # Name of the Tier-0 gateway to which target NSX-T edge gateways will be connected to
->>>>>>> parent of c596318 (Update sampleUserInput - migration3.yml)
+      Tier0Gateways: T0-PUBLIC-LEGACY # Name of the Tier-0 gateway to which target NSX-T edge gateways will be connected to
       LegacyDirectNetwork: True # (Optional) Option to enable legacy migration mechanism of service direct networks
       EmptyIPPoolOverride: False # (Optional) Enabling this option will not remove the last available IP from the Static-IP Pool of External Network/Tier0 Gateway during rollback and cleanup
       NSXTNetworkPoolName: GENEVE_NETWORK_POOL_VDC # Name of the nsxt backed network pool which needs to be added incase of multiple network pools
