@@ -5,19 +5,22 @@ VCloudDirector:
     username: v2t # VMware Cloud Director system administrator login name
     verify: False # Certificate validation enabled
   Organization:
-    OrgName: MIGRATION-01 # Short name of the organization containing Org VDC to be migrated
+    OrgName: MIGRATION-04 # Short name of the organization containing Org VDC to be migrated
   SourceOrgVDC:
     # Single/multiple source Org VDCs in the form of a list that needs to be migrated
-    - OrgVDCName: MIGRATION-01-NSXV # Name of the source organization VDC
+    - OrgVDCName: MIGRATION-04-NSXV # Name of the source organization VDC
       NSXVProviderVDCName: AZB-NSXV # Name of the source provider VDC backed by NSX-V
       NSXTProviderVDCName: AZA-NSXT # Name of the target provider VDC backed by NSX-T
-      Tier0Gateways: T0-PUBLIC # Name of the Tier-0 gateway to which target NSX-T edge gateways will be connected to
+      Tier0Gateways: T0-PUBLIC-LEGACY # Name of the Tier-0 gateway to which target NSX-T edge gateways will be connected to
       LegacyDirectNetwork: True # (Optional) Option to enable legacy migration mechanism of service direct networks
       EmptyIPPoolOverride: False # (Optional) Enabling this option will not remove the last available IP from the Static-IP Pool of External Network/Tier0 Gateway during rollback and cleanup
       NSXTNetworkPoolName: GENEVE_NETWORK_POOL_VDC # Name of the nsxt backed network pool which needs to be added incase of multiple network pools
       NoSnatDestinationSubnet: False # (optional) Prefixes that should be routed but not SNATed (used when internet and routed external networking is used at the same time)
-      #  - 10.100.0.0/16
-      #  - 10.101.0.0/16
+        - 10.0.0.0/8
+        - 172.16.0.0/12
+        - 192.168.0.0/16
+        - 9.9.9.9/32
+        - 198.18.0.0/24
       ServiceEngineGroupName: lab-seg-as-01 # (optional) NSX ALB service engine group name to be used for load balancer configuration
       LoadBalancerVIPSubnet: 192.168.255.128/28 # (optional) Network subnet to be used for Virtual IP configuration of load balancer virtual service (Default value - 192.168.255.128/28)
       LoadBalancerServiceNetwork: 192.168.155.1/25 # (optional) The IPv4 network definition in Gateway CIDR format which will be used by Load Balancer service on edge.
